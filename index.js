@@ -1,34 +1,32 @@
 let randomNumber = Math.floor(Math.random() * 100 ) + 1;
+
 const resultParas = document.querySelector('.resultParas');
 let guesses =  document.querySelector('.guesses');
-const lastResult = document.querySelector('.lastResult');
-const lowOrHi = document.querySelector('.lowOrHi');
+let lastResult = document.querySelector('.lastResult');
+let lowOrHi = document.querySelector('.lowOrHi');
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
 let guessCount = 1;
 let resetButton;
-const surrender = document.querySelector('.surrender')
+let surrender = document.querySelector('.surrender')
 const answer = document.querySelector('.answer');
-const answerNumber = document.querySelector('.answerNumber') 
+let answerNumber = document.querySelector('.answerNumber') 
 
 function checkGuess() {
         
     let userGuess = Number(guessField.value);
-    if (guessCount === 1) {
-        guesses.textContent = '前回の予想: ';
-    }
+    // if (guessCount === 1) {
+    //     guesses.textContent = '前回の予想: ';
+    // }
 
     guesses.textContent += userGuess + '点 ';
 
     if (userGuess === randomNumber) {
-        lastResult.textContent = 'おめでとう！正解です！';
         lowOrHi.textContent = '';
-        setGameOver();
-        openAnswer();
+        finishGame();
     }else if (guessCount === 10) {
         lastResult.textContent = '!!!ゲームオーバー!!!';
         setGameOver();
-        answerNumber.textContent='たかしの点数は' + randomNumber + '点でした～！';
     } else {
         lastResult.textContent = '間違いです！';
         if (userGuess < randomNumber) {
@@ -42,39 +40,34 @@ function checkGuess() {
 guessCount++;
 guessField.value=' ';
 guessField.focus();
-
-
-    
 }
 
 
 guessSubmit.addEventListener('click', checkGuess);
 
 
-
-function openAnswer() {
-    answerNumber.textContent='たかしの点数は' + randomNumber + '点でした～！';
-
-    setGameOver();
-    resetGame();
+function finishGame() {
     
-
-}
-
-
-surrender.addEventListener('click', openAnswer)
-
-
-
-
-function setGameOver() {
+    lastResult.textContent = '正解!俺の国語の点数は' + randomNumber + 'でしたー！よくわかったね！'
     guessField.disabled = true;
     guessSubmit.disabled = true;
+    surrender.disabled = true;
     resetButton = document.createElement('button');
     resetButton.textContent = '新しいゲームを始める';
     document.body.appendChild(resetButton);
     resetButton.addEventListener('click', resetGame);
 }
+
+function setGameOver() {
+    finishGame();
+    lastResult.textContent='残念！たかしの点数は' + randomNumber + '点でした～！'
+    
+}
+
+
+surrender.addEventListener('click', setGameOver)
+
+
 
 function resetGame() {
     guessCount = 1;
@@ -86,19 +79,33 @@ function resetGame() {
 
     resetButton.parentNode.removeChild(resetButton);
 
+
+    //前回の予想を削除
     guesses.remove();
     guesses = document.createElement('p');
-    // document.body.appendChild(guesses)
     resultParas.insertBefore(guesses, lastResult);
     guesses.classList.add('guesses');
+    guesses.textContent = '前回の予想: '
 
+    //前回のアドバイスを削除
+    lowOrHi.remove();
+    lowOrHi = document.createElement('p');
+    resultParas.appendChild(lowOrHi);
+    lowOrHi.classList.add('lowOrHi');
+
+
+    //前回の答えを削除
+    lastResult.remove();
+    lastResult = document.createElement('p');
+    resultParas.insertBefore(lastResult, lowOrHi);
+    lastResult.classList.add('lastResult');
 
     guessField.disabled = false;
     guessSubmit.disabled = false;
+    surrender.disabled = false;
     guessField.value = '';
     guessField.focus();
 
-    lastResult.style.backgroundColor = 'white';
 
     randomNumber = Math.floor(Math.random() * 100) + 1;
 }
