@@ -1,11 +1,15 @@
 let randomNumber = Math.floor(Math.random() * 100 ) + 1;
-const guesses =  document.querySelector('.guesses');
+const resultParas = document.querySelector('.resultParas');
+let guesses =  document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
 const lowOrHi = document.querySelector('.lowOrHi');
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
 let guessCount = 1;
 let resetButton;
+const surrender = document.querySelector('.surrender')
+const answer = document.querySelector('.answer');
+const answerNumber = document.querySelector('.answerNumber') 
 
 function checkGuess() {
         
@@ -20,9 +24,11 @@ function checkGuess() {
         lastResult.textContent = 'おめでとう！正解です！';
         lowOrHi.textContent = '';
         setGameOver();
+        openAnswer();
     }else if (guessCount === 10) {
         lastResult.textContent = '!!!ゲームオーバー!!!';
         setGameOver();
+        answerNumber.textContent='たかしの点数は' + randomNumber + '点でした～！';
     } else {
         lastResult.textContent = '間違いです！';
         if (userGuess < randomNumber) {
@@ -45,6 +51,22 @@ guessField.focus();
 guessSubmit.addEventListener('click', checkGuess);
 
 
+
+function openAnswer() {
+    answerNumber.textContent='たかしの点数は' + randomNumber + '点でした～！';
+
+    setGameOver();
+    resetGame();
+    
+
+}
+
+
+surrender.addEventListener('click', openAnswer)
+
+
+
+
 function setGameOver() {
     guessField.disabled = true;
     guessSubmit.disabled = true;
@@ -55,7 +77,7 @@ function setGameOver() {
 }
 
 function resetGame() {
-guessCount = 1;
+    guessCount = 1;
 
     const resetParas = document.querySelector('.resultParas p');
     for (let i = 0 ; i < resetParas.length ; i++) {
@@ -63,6 +85,13 @@ guessCount = 1;
     }
 
     resetButton.parentNode.removeChild(resetButton);
+
+    guesses.remove();
+    guesses = document.createElement('p');
+    // document.body.appendChild(guesses)
+    resultParas.insertBefore(guesses, lastResult);
+    guesses.classList.add('guesses');
+
 
     guessField.disabled = false;
     guessSubmit.disabled = false;
@@ -73,5 +102,3 @@ guessCount = 1;
 
     randomNumber = Math.floor(Math.random() * 100) + 1;
 }
-
-
