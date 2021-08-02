@@ -28,10 +28,29 @@ function checkGuess() {
 
     guesses.textContent += userGuess + '点 ';
 
+
+
     if (userGuess === randomNumber) {
         lowOrHi.textContent = '';
+        if (randomNumber === 100) {
+            lastResult.textContent = '正解!俺の国語の点数は満点でした！頑張ったんだー！'
+            alert('正解!俺の国語の点数は満点でした！頑張ったんだー！');
+            console.log('満点');
+        }else if ( randomNumber > 80) {
+            lastResult.textContent = '正解!俺の国語の点数は' + randomNumber + '点でしたー！いい点数でしょー！'
+            alert('正解!俺の国語の点数は' + randomNumber + '点でしたー！いい点数でしょー！');
+            console.log('80点以上の点数');
+        } else if ( randomNumber > 40 ) {
+            lastResult.textContent = '正解!俺の国語の点数は' + randomNumber + '点でしたー！何とも言えない点数だよね。。。'
+            alert('正解!俺の国語の点数は' + randomNumber + '点でしたー！何とも言えない点数だよね。。。');
+            console.log('40 ~ 80点の点数');
+        } else {
+            lastResult.textContent = '正解!俺の国語の点数は' + randomNumber + '点でしたー！赤点だったの。。。'
+            alert('正解!俺の国語の点数は' + randomNumber + '点でしたー！赤点だったの。。。');
+            console.log('40点以下の点数');
+        }
         finishGame();
-    }else if (guessCount === 10) {
+    } else if (guessCount === 10) {
         lastResult.textContent = '!!!ゲームオーバー!!!';
         setGameOver();
     } else {
@@ -42,6 +61,7 @@ function checkGuess() {
             lowOrHi.textContent='今の予想は大きすぎです！';
         }
     }
+
 
 
 guessCount++;
@@ -57,7 +77,6 @@ countGuess();
 
 function finishGame() {
     
-    lastResult.textContent = '正解!俺の国語の点数は' + randomNumber + 'でしたー！よくわかったね！'
     guessField.disabled = true;
     guessSubmit.disabled = true;
     surrender.disabled = true;
@@ -118,6 +137,7 @@ function resetGame() {
     numberOfChallenges = 10
     numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
 
+    //新しいゲームになるまでフォームを無効化
     guessField.disabled = false;
     guessSubmit.disabled = false;
     surrender.disabled = false;
@@ -134,9 +154,3 @@ function countGuess() {
     numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
 }
 
-//Enter Keyが押されたらSubmit
-function enter() {
-    if(Window.event.keyCode == 13) {
-        document.forms.submit();
-    }
-}
