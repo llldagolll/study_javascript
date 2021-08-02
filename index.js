@@ -10,7 +10,14 @@ let guessCount = 1;
 let resetButton;
 let surrender = document.querySelector('.surrender')
 const answer = document.querySelector('.answer');
-let answerNumber = document.querySelector('.answerNumber') 
+let numberOfRestChallenges = document.querySelector('.numberOfRestChallenges')
+let description = document.querySelector('.description')
+
+
+
+numberOfChallenges = 10
+numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
+
 
 function checkGuess() {
         
@@ -40,6 +47,8 @@ function checkGuess() {
 guessCount++;
 guessField.value=' ';
 guessField.focus();
+
+countGuess();
 }
 
 
@@ -66,6 +75,7 @@ function setGameOver() {
 
 
 surrender.addEventListener('click', setGameOver)
+
 
 
 
@@ -100,6 +110,14 @@ function resetGame() {
     resultParas.insertBefore(lastResult, lowOrHi);
     lastResult.classList.add('lastResult');
 
+    //前回の試行回数を削除
+    numberOfRestChallenges.remove();
+    numberOfRestChallenges = document.createElement('p');
+    description.appendChild(numberOfRestChallenges);
+    numberOfRestChallenges.classList.add('numberOfRestChallenges');
+    numberOfChallenges = 10
+    numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
+
     guessField.disabled = false;
     guessSubmit.disabled = false;
     surrender.disabled = false;
@@ -108,4 +126,10 @@ function resetGame() {
 
 
     randomNumber = Math.floor(Math.random() * 100) + 1;
+}
+
+//試行回数を表示
+function countGuess() {
+    numberOfChallenges =10 - (guessCount-1);
+    numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
 }
