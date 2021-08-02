@@ -17,10 +17,24 @@
     <p class="numberOfRestChallenges">残り挑戦回数: </p>
     </div>
 
+
+<!-- どちらでもよい formタグに関数を指定した場合とinputタグに関数を指定した場合   -->
+
+    <!-- <div class="form">
+        <form action="" onsubmit="checkGuess();return false;">
+            <label for="guessField">予想した点数を入れてください: </label>
+            <input type="text" id="guessField" class="guessField">
+            <input type="submit" value="判定" class="guessSubmit">
+        </form>
+    </div> -->
+
+    
     <div class="form">
-        <label for="guessField">予想した点数を入れてください: </label>
-        <input type="text" id="guessField" class="guessField">
-        <input type="submit" value="判定" class="guessSubmit">
+        <form action="" onsubmit = "return false;">
+            <label for="guessField">予想した点数を入れてください: </label>
+            <input type="text" id="guessField" class="guessField">
+            <input type="submit" value="判定" class="guessSubmit" onclick="checkGuess()">
+        </form>
     </div>
     
     <div class="resultParas">

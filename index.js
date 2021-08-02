@@ -52,7 +52,7 @@ countGuess();
 }
 
 
-guessSubmit.addEventListener('click', checkGuess);
+// guessSubmit.addEventListener('click', checkGuess);
 
 
 function finishGame() {
@@ -132,4 +132,11 @@ function resetGame() {
 function countGuess() {
     numberOfChallenges =10 - (guessCount-1);
     numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
+}
+
+//Enter Keyが押されたらSubmit
+function enter() {
+    if(Window.event.keyCode == 13) {
+        document.forms.submit();
+    }
 }
