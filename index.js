@@ -1,5 +1,4 @@
 let randomNumber = Math.floor(Math.random() * 100 ) + 1;
-
 const resultParas = document.querySelector('.resultParas');
 let guesses =  document.querySelector('.guesses');
 let lastResult = document.querySelector('.lastResult');
@@ -22,13 +21,8 @@ numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChalleng
 function checkGuess() {
         
     let userGuess = Number(guessField.value);
-    // if (guessCount === 1) {
-    //     guesses.textContent = '前回の予想: ';
-    // }
 
     guesses.textContent += userGuess + '点 ';
-
-
 
     if (userGuess === randomNumber) {
         lowOrHi.textContent = '';
@@ -72,7 +66,6 @@ countGuess();
 }
 
 
-// guessSubmit.addEventListener('click', checkGuess);
 
 
 function finishGame() {
@@ -154,3 +147,7 @@ function countGuess() {
     numberOfRestChallenges.textContent ='残りの挑戦回数: ' + numberOfChallenges;
 }
 
+// //バリデーション
+// function checkFormValidation() {
+
+// }
